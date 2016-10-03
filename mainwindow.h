@@ -37,6 +37,7 @@ private:
     static QIcon oIcon();
     static QIcon nothingIcon();
     bool w = false;
+    int HOD=0;
 
 private slots:
     void playerMove();

@@ -134,9 +134,9 @@
    <widget class="QPushButton" name="pushButton_10">
     <property name="geometry">
      <rect>
-      <x>270</x>
+      <x>290</x>
       <y>180</y>
-      <width>81</width>
+      <width>71</width>
       <height>61</height>
      </rect>
     </property>
@@ -167,6 +167,12 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuTic_Tac_Toe">
+    <property name="title">
+     <string>Tic Tac Toe</string>
+    </property>
+   </widget>
+   <addaction name="menuTic_Tac_Toe"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">

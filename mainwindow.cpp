@@ -25,8 +25,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
 
-    ui->pushButton_10->setIcon(QIcon("::resource/9.png"));
-    ui->pushButton_10->setIconSize(QSize(50,50));
+    ui->pushButton_10->setIcon(QIcon(":resource/3.png"));
+    ui->pushButton_10->setIconSize(QSize(70,70));
 
     QPushButton *buttons[3][3] = {
         {ui->pushButton,   ui->pushButton_2, ui->pushButton_3},
@@ -95,8 +95,9 @@ void MainWindow::playerMove()
     switch (m_currentPlayer) {
     case Player1:
         btn->setIcon(xIcon());
-        btn->setIconSize(QSize(90,190));
+        btn->setIconSize(QSize(70,70));
         m_currentPlayer = Player2;
+        HOD++;
         if (mark(0,0)==X && mark(1,1)==X && mark(2,2)==X)
                   w = true;
         if (mark(0,0)==X && mark(0,1)==X && mark(0,2)==X)
@@ -114,13 +115,18 @@ void MainWindow::playerMove()
         if (mark(2,0)==X && mark(1,1)==X && mark(0,2)==X)
                  w = true;
 
-                if(w)
+
+         if(w)
                   ui->label->setText("WinP_1-X");
+         if(HOD==9)
+             ui->label->setText("НИЧЬЯ");
+
         return;
     case Player2:
         btn->setIcon(oIcon());
         btn->setIconSize(QSize(70,70));
         m_currentPlayer = Player1;
+        HOD++;
         if (mark(0,0)==O && mark(1,1)==O && mark(2,2)==O)
                   w = true;
         if (mark(0,0)==O && mark(0,1)==O && mark(0,2)==O)
@@ -140,6 +146,8 @@ void MainWindow::playerMove()
 
                 if(w)
                   ui->label->setText("WinP_2-O");
+                if(HOD==9)
+                  ui->label->setText("НИЧЬЯ");
         return;
     default:
         return;
