@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QPushButton>
 #include <QIcon>
+#include<QStackedWidget>
 
 namespace Ui {
 class MainWindow;
@@ -24,12 +25,17 @@ public:
 
     void setMark(int i, int j, Mark m);
     void setMark(QPushButton* btn, Mark m);
+    int type=0;//тип игры
 
 private:
     Ui::MainWindow *ui;
     enum Player {Player1, Player2};
 
     Player m_currentPlayer = Player1;
+
+    enum BOTPC {Pl1,PC};
+
+    BOTPC m_currentPLBOT = Pl1;
 
     QPushButton *m_buttons[3][3];
 
@@ -39,9 +45,13 @@ private:
     bool w = false;
     int HOD=0;
 
+
 private slots:
     void playerMove();
+    void on_PvP_clicked();
+    void on_PvE_clicked();
     void on_pushButton_10_clicked(bool checked);
+    void Win();
 };
 
 #endif // MAINWINDOW_H

@@ -7,6 +7,7 @@
 #include <QIcon>
 #include <QProcess>
 
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -81,7 +82,10 @@ void MainWindow::setMark(QPushButton *btn, MainWindow::Mark m)
 }
 
 void MainWindow::playerMove()
-{
+{   //////////////////////////
+    ///////ИгрокVSИгрок///////
+    //////////////////////////
+    if(type==1){
     QPushButton* btn = qobject_cast<QPushButton*>(sender());
 
    if (w)
@@ -98,28 +102,9 @@ void MainWindow::playerMove()
         btn->setIconSize(QSize(70,70));
         m_currentPlayer = Player2;
         HOD++;
-        if (mark(0,0)==X && mark(1,1)==X && mark(2,2)==X)
-                  w = true;
-        if (mark(0,0)==X && mark(0,1)==X && mark(0,2)==X)
-                  w = true;
-        if (mark(1,0)==X && mark(1,1)==X && mark(1,2)==X)
-                  w = true;
-        if (mark(2,0)==X && mark(2,1)==X && mark(2,2)==X)
-                  w = true;
-        if (mark(0,0)==X && mark(1,0)==X && mark(2,0)==X)
-                  w = true;
-        if (mark(0,1)==X && mark(1,1)==X && mark(2,1)==X)
-                  w = true;
-        if (mark(0,2)==X && mark(1,2)==X && mark(2,2)==X)
-                 w = true;
-        if (mark(2,0)==X && mark(1,1)==X && mark(0,2)==X)
-                 w = true;
-
-
-         if(w)
-                  ui->label->setText("WinP_1-X");
-         if(HOD==9)
-             ui->label->setText("НИЧЬЯ");
+        Win();
+        if(HOD==9&&!w)
+          ui->label->setText("НИЧЬЯ");
 
         return;
     case Player2:
@@ -127,32 +112,84 @@ void MainWindow::playerMove()
         btn->setIconSize(QSize(70,70));
         m_currentPlayer = Player1;
         HOD++;
-        if (mark(0,0)==O && mark(1,1)==O && mark(2,2)==O)
-                  w = true;
-        if (mark(0,0)==O && mark(0,1)==O && mark(0,2)==O)
-                  w = true;
-        if (mark(1,0)==O && mark(1,1)==O && mark(1,2)==O)
-                  w = true;
-        if (mark(2,0)==O && mark(2,1)==O && mark(2,2)==O)
-                  w = true;
-        if (mark(0,0)==O && mark(1,0)==O && mark(2,0)==O)
-                  w = true;
-        if (mark(0,1)==O && mark(1,1)==O && mark(2,1)==O)
-                  w = true;
-        if (mark(0,2)==O && mark(1,2)==O && mark(2,2)==O)
-                 w = true;
-        if (mark(2,0)==O && mark(1,1)==O && mark(0,2)==O)
-                 w = true;
+        Win();
+        if(HOD==9&&!w)
+          ui->label->setText("НИЧЬЯ");
 
-                if(w)
-                  ui->label->setText("WinP_2-O");
-                if(HOD==9)
-                  ui->label->setText("НИЧЬЯ");
         return;
     default:
         return;
     }
+}
+    //////////////////////////
+    ///////ИгрокVSБОТ/////////
+    //////////////////////////
+    if(type==2){
+        QPushButton* btn = qobject_cast<QPushButton*>(sender());
 
+       if (w)
+            return;
+       if (!btn)
+            return;
+
+        if (mark(btn) != Nothing)
+            return;
+
+        switch (m_currentPLBOT) {
+        case Pl1:
+            btn->setIcon(xIcon());
+            btn->setIconSize(QSize(70,70));
+            m_currentPLBOT = PC;
+
+            HOD++;
+            Win();
+             if(HOD==9&&!w)
+                 ui->label->setText("НИЧЬЯ");
+
+            return;
+        case PC:
+           // mark(i=random%8,j=random%8);
+
+            m_currentPLBOT = Pl1;
+            HOD++;
+            Win();
+            if(HOD==9&&!w)
+              ui->label->setText("НИЧЬЯ");
+
+            return;
+        default:
+            return;
+        }
+    }
+}
+
+///////////////////////
+////Проверка Победы////
+///////////////////////
+void MainWindow::Win()
+{
+if ( (mark(0,0)==X && mark(1,1)==X && mark(2,2)==X)||
+     (mark(0,0)==X && mark(0,1)==X && mark(0,2)==X)||
+     (mark(1,0)==X && mark(1,1)==X && mark(1,2)==X)||
+     (mark(2,0)==X && mark(2,1)==X && mark(2,2)==X)||
+     (mark(0,0)==X && mark(1,0)==X && mark(2,0)==X)||
+     (mark(0,1)==X && mark(1,1)==X && mark(2,1)==X)||
+     (mark(0,2)==X && mark(1,2)==X && mark(2,2)==X)||
+     (mark(2,0)==X && mark(1,1)==X && mark(0,2)==X) ){
+       w=true;
+       ui->label->setText("Win-X");}
+
+if( (mark(0,0)==O && mark(1,1)==O && mark(2,2)==O)||
+    (mark(0,0)==O && mark(0,1)==O && mark(0,2)==O)||
+    (mark(1,0)==O && mark(1,1)==O && mark(1,2)==O)||
+    (mark(2,0)==O && mark(2,1)==O && mark(2,2)==O)||
+    (mark(0,0)==O && mark(1,0)==O && mark(2,0)==O)||
+    (mark(0,1)==O && mark(1,1)==O && mark(2,1)==O)||
+    (mark(0,2)==O && mark(1,2)==O && mark(2,2)==O)||
+    (mark(2,0)==O && mark(1,1)==O && mark(0,2)==O) ){
+        w=true;
+        ui->label->setText("Win-O");
+}
 }
 
  QIcon MainWindow::xIcon()
@@ -180,3 +217,22 @@ void MainWindow::on_pushButton_10_clicked(bool checked)
     qApp->quit();
     QProcess::startDetached(qApp->arguments()[0], qApp->arguments());
 }
+
+///////////////////////////
+////Кнопка "ДВА ИГРОКА"////
+///////////////////////////
+
+void MainWindow::on_PvP_clicked()
+{
+   type=1;
+
+}
+//////////////////////////////////
+////Кнопка"ИГРА С КОМПЬЮТЕРОМ"////
+//////////////////////////////////
+
+void MainWindow::on_PvE_clicked()
+{
+   type=2;
+}
+

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>420</width>
+    <height>302</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -134,7 +134,7 @@
    <widget class="QPushButton" name="pushButton_10">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>260</x>
       <y>180</y>
       <width>71</width>
       <height>61</height>
@@ -147,8 +147,8 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>280</x>
-      <y>30</y>
+      <x>260</x>
+      <y>10</y>
       <width>71</width>
       <height>31</height>
      </rect>
@@ -157,13 +157,39 @@
      <string/>
     </property>
    </widget>
+   <widget class="QPushButton" name="PvE">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>210</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>UserVsPC</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="PvP">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>180</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>User1VsUser2</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>400</width>
+     <width>420</width>
      <height>21</height>
     </rect>
    </property>
@@ -171,6 +197,7 @@
     <property name="title">
      <string>Tic Tac Toe</string>
     </property>
+    <addaction name="separator"/>
    </widget>
    <addaction name="menuTic_Tac_Toe"/>
   </widget>
