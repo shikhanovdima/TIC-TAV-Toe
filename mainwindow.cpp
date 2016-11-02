@@ -81,6 +81,26 @@ void MainWindow::setMark(QPushButton *btn, MainWindow::Mark m)
     }
 }
 
+QPushButton *MainWindow::randomFreeButton() const
+{
+    QVector<QPushButton*> freeButtons;
+
+    for (int i=0; i<3; ++i) {
+        for (int j=0; j<3; ++j) {
+            auto btn = m_buttons[i][j];
+            if (mark(btn) == Nothing)
+                freeButtons.push_back(btn);
+        }
+    }
+
+    int freeCount = freeButtons.size();
+    if (freeCount == 0)
+        return 0;
+
+    int randNo = rand() % freeCount;
+    return freeButtons.at(randNo);
+}
+
 void MainWindow::playerMove()
 {   //////////////////////////
     ///////ИгрокVSИгрок///////
@@ -146,9 +166,14 @@ void MainWindow::playerMove()
              if(HOD==9&&!w)
                  ui->label->setText("НИЧЬЯ");
 
-            return;
-        case PC:
-           // mark(i=random%8,j=random%8);
+//            return;
+//        case PC:
+            btn = randomFreeButton();
+            if (btn == 0)
+                return;
+
+            btn->setIcon(oIcon());
+            btn->setIconSize(QSize(70,70));
 
             m_currentPLBOT = Pl1;
             HOD++;

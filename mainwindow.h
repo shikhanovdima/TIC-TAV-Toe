@@ -28,6 +28,8 @@ public:
     int type=0;//тип игры
 
 private:
+    QPushButton *randomFreeButton() const;
+
     Ui::MainWindow *ui;
     enum Player {Player1, Player2};
 
